@@ -1,0 +1,63 @@
+{% extends "customer_management/base.htm"%}
+
+
+{% block content %}
+        <div class="main-content">
+            <header class="header">
+                <div class="header-title">
+                    <h2>
+                        <label>
+                            Dealers
+                        </label>
+                    </h2>
+        
+                    <a href="{% url 'dealers:create' %}">
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-pencil">Add Dealers</span>
+                        </button>
+                    </a>
+                    
+                </div>
+                <hr>
+            </header>
+            <div class="display">
+                <table id="myTable" class="table table-hover">
+                    <caption>List of Dealers</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">FirstName</th>
+                            <th scope="col">LastName</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Email Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dealers in dealers %}
+                        <tr>
+                            <td>{{dealers.firstname}}</td>
+                            <td>{{dealers.lastname}}</td>
+                            <td>{{dealers.company}}</td>
+                            <td>{{dealers.address}}</td>
+                            <td>{{dealers.email_address}}</td>
+                            <td>{{dealers.phone}}</td>
+                            <td>
+                                <a href="{% url 'dealers:delete' dealers.id %}">
+                                    <button type="button" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash">Delete</span>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    
+
+  
+{% endblock %}

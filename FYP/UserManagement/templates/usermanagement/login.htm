@@ -1,0 +1,39 @@
+{% extends "usermanagement/base.htm" %}
+{% block links %}
+    
+{% endblock %}
+{% block body_block %}
+
+<div class="container" style="width: 50%; align-content:center; padding:5%">
+  <h1 class="display-5">Login Here</h1>
+  <div class="form">
+    
+    <form action="{% url 'usermanagement:user_login' %}" method="POST">
+        {% csrf_token %}
+       
+        <div class="form-outline">
+            <label class="form-label" for="username">Username</label>
+            <input type="text" id="form1Example1" class="form-control" name="username" required/>
+          
+        </div>
+      
+        <div class="form-outline">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="form1Example2" class="form-control" name="password" required/>
+        </div>
+      
+      
+        <div class="row mb-4">        
+          <div class="col">
+            <a href="#!">Forgot password?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" value="Login">Sign in</button>
+      </form>
+
+  </div>
+    
+</div>
+ {% endblock %}
+ 

@@ -1,0 +1,162 @@
+{% extends "customer_management/base.htm"%}
+
+{% block content %}
+<div class="main-content">
+  <header class="header">
+      <div class="header-title">
+          <h2>
+              <label>
+                  Add Products
+              </label>
+          </h2>          
+      </div>
+      <hr>
+  </header>
+
+  <div class="content-form">
+    <form action="{% url 'productmanagement:create' %}" method="POST">
+      {% csrf_token %}
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example2">Item Name</label>
+            <input type="text" id="form6Example2" class="form-control"  name="item" required/>
+          
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example3">Quantity</label>
+            <input type="number" id="quantity" class="form-control"  name="quantity" required/>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-label" for="form6Example1">Category</label>
+            <select class="form-control"  name="category" required>
+              <option>Select from below</option>
+              <option>Poultry</option>
+              <option >Grains</option>
+              <option>Accessories</option>
+            </select>
+          </div>
+        </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example3">Rate</label>
+              <input type="number" id="rate" class="form-control"  name="rate" required/>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example3">Amount</label>
+              <button id="total-btn" type="button" class="btn btn-light" onclick="calculate()">Total</button>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" id="amount" class="form-control"  name="amount" />
+              </div>
+              
+            </div>
+            <script>
+              function calculate(){
+                var rate=document.getElementById("rate").value;
+                var quantity=document.getElementById("quantity").value;
+                var total=rate*quantity + rate*quantity*0.13;
+                document.getElementById("amount").value=total; 
+              }
+            </script>
+          </div>
+        
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example4">Received Date</label>
+            <input type="date" id="form6Example4" class="form-control"  name="mfdate" />     
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example4">Expiry Date</label>
+            <input type="date" id="form6Example4" class="form-control"  name="expdate" />     
+          </div>
+        </div>
+        
+      </div>   
+
+      <!-- Text input -->
+      <div>
+        <h5>Is there any dealer?</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+          <label class="form-check-label" for="flexRadioDefault2">
+            No
+          </label>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example1">First name</label>
+            <input type="text" id="form6Example1" class="form-control"  name="firstname" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form6Example2">Last name</label>
+            <input type="text" id="form6Example2" class="form-control"  name="lastname" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example3">Company name</label>
+        <input type="text" id="form6Example3" class="form-control"  name="company" />
+      
+      </div>
+
+      <!-- Text input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example4">Address</label>
+        <input type="text" id="form6Example4" class="form-control"  name="address" />
+      
+      </div>
+
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example5">Email Address</label>
+        <input type="email" id="form6Example5" class="form-control"  name="email_address" />
+      
+      </div>
+
+      <!-- Number input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form6Example6">Phone</label>
+        <input type="number" id="form6Example6" class="form-control"  name="phone" />
+      
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #023e4d;">Add Products</button>
+    </form>
+    <a href="{% url 'productmanagement:index' %}">Go Back</a>
+  </div>
+</div>
+
+  
+{% endblock %}
+ 
+ 

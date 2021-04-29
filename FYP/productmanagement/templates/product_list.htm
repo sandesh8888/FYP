@@ -1,0 +1,61 @@
+{% extends "customer_management/base.htm"%}
+
+{% block content %}
+        <div class="main-content">
+            
+            <header class="header">
+                <div class="header-title">
+                    <h2>
+                        <label>
+                            Products
+                        </label>
+                    </h2>
+        
+                    <a href="{% url 'productmanagement:create' %}">
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-pencil">Add Products</span>
+                        </button>
+                    </a>
+                    
+                </div>
+                <hr>
+            </header>
+            <div class="display">
+                <table id="myTable" class="table table-hover" >
+                    <caption>List of Products</caption>
+                    <thead>
+                        <tr>
+                            <th id="col">Category</th>
+                            <th id="col">Item</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Received Date</th>
+                            <th scope="col">Expiry Date</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for products in products %}
+                        <tr>
+                            <td>{{products.category}}</td>
+                            <td>{{products.item_name}}</td>
+                            <td><a href="{% url 'productmanagement:detail' products.id%}">{{products.quantity}}</a></td> 
+                            <td>{{products.received_date}}</td> 
+                            <td>{{products.expiry_date}}</td>
+                            <td>
+                                <a href="{% url 'productmanagement:delete' products.id %}">
+                                    <button type="button" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash">Delete</span>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    
+
+  
+{% endblock %}
