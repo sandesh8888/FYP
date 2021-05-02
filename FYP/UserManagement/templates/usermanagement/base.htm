@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>ScaleUP</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="static/home.css">
     
 </head>
 <body>
-    <div>
-        <nav class ="navbar navbar-expand-lg navbar-light bg-light ">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse">
-                    <div class="navbar-nav">
-                        <a class="nav-item navbar-link" href="{% url 'usermanagement:home_page' %}">ScaleUP</a>
-                        <a class="nav-item navbar-link" href="{%url 'admin:index'%}">Admin</a>
-                        <a class="nav-item navbar-link" href="{% url 'usermanagement:user_login' %}">Login</a>   
-                    </div>
-                </div>
-            </div>
+    <div class="content">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark pmd-navbar pmd-z-depth" id="navbar" style="background-color: #023e4d; ">
+            <a class="navbar-brand" href="{% url 'usermanagement:home_page' %}" >ScaleUP</a>
+            <a class="navbar-brand" href="{%url 'admin:index'%}">Admin</a>
+            <a class="navbar-brand" href="{% url 'usermanagement:user_login' %}">Login</a>
         </nav>
-    </div>
     
-    <div class="container">
-        {% block body_block %}
-        {% endblock %}
+        <div class="container" style="padding-top: 90px; padding-bottom:20px">
+            {% block body_block %}
+            {% endblock %}
+        </div>
     </div>
-    <footer></footer>
+    <footer>
+        <div class="footer-copyright text-center py-3" style="background-color: #023e4d; color:aliceblue">© 2021 Copyright        
+        </div>
+    </footer>
 </body>
 </html>

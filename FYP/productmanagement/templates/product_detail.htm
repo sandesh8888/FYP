@@ -18,8 +18,7 @@
                         <th scope="col">QUANTITY</th>
                         <th scope="col">LAST UPDATED</th>
                         <th scope="col">REORDER LEVEL</th>
-                        <th scope="col">ADD STOCK</th>
-                        <th scope="col">SELL STOCK</th>
+                        <th scope="col">SELL {{queryset.item_name}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +27,6 @@
                         <td>{{queryset.quantity}}</td>
                         <td>{{queryset.last_updated}}</td>
                         <td>{{queryset.reorder_level}}</td>
-                        <td><a href='#receive'><div class='btn btn-primary'>BUY</div></a></td>
                         <td><a href='#issue'><div class='btn btn-danger'>SELL</div></a></td>
                     </tr>
                 </tbody>

@@ -46,7 +46,13 @@
     color: #111;
     text-decoration: wavy;
   }
-  
+  #navbar a{
+    display: block;
+    padding-right: 1rem;
+    color: aliceblue;
+    text-decoration: none;
+  }
+
   /* Turn off parallax scrolling for tablets and phones */
   @media only screen and (max-device-width: 1024px) {
     .bg1, .bg2, .bg3 {

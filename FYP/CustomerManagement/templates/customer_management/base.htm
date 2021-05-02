@@ -16,52 +16,51 @@
     <script type="text/javascript">
         $(document).ready( function () {
             $('#myTable').DataTable();
+            $('#customerTable').DataTable();
         } );
     </script>
     
 </head>
 <body>
-    <div class="content">
-        <div class="sidebar">
-            <div class="sidebar-brand">
-                <a href=""><h1 style="color: aliceblue;" class="las la-accusoft">ScaleUP</h1></a>
-                <div class="sidebar-menu">
-                    <ul>
-                        <li>
-                            <a href="{% url 'customermanagement:dashboard' %}"><span class="las la-igloo"></span><span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'customermanagement:index' %}"><span class="las la-users"></span><span>Customers</span></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'dealers:index' %}"><span class="las la-users"></span><span>Dealers</span></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'productmanagement:index' %}"><span class="las la-egg"></span><span>Products</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="las la-money-bill"></span><span>Capital</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="las la-receipt"></span><span>Receipt</span></a>
-                        </li>
-                        <li>
-                            <a class="navbar-link" href="{% url 'usermanagement:user_logout' %}">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="main-content" style="display: block;">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark pmd-navbar pmd-z-depth" id="navbar" style="background-color: #023e4d; ">
+            <a href="{% url 'customermanagement:dashboard' %}" class="navbar-brand" style="font-size: 2rem; padding-left:2rem">ScaleUP</a>
+            <button class="btn btn-outline-info" style="position:relative; right:auto%"><a class="navbar-link" href="{% url 'usermanagement:user_logout' %}" >Logout</a></button>
+        </nav>
+        <div class="content">
+           
+            <div class="sidebar">
     
-        <div class="container" style="padding-top: 20px;">
-            {% block content %}
-        
-            {% endblock %}
-        </div>
-    
-    </div>  
-    
-    
-    
+                <ul>
+                    <li>
+                        <a href="{% url 'customermanagement:dashboard' %}"><span class="las la-igloo"></span><span>Dashboard</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'customermanagement:index' %}"><span class="las la-users"></span><span>Customers</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'dealers:index' %}"><span class="las la-users"></span><span>Dealers</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'productmanagement:index' %}"><span class="las la-egg"></span><span>Products</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'productmanagement:transactions' %}"><span class="las la-money-bill"></span><span>Transactions</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="las la-receipt"></span><span>Receipt</span></a>
+                    </li>
+                
+                </ul>
+            </div>  
+            <div class="container" >
+                {% block content %}
+            
+                {% endblock %}
+            </div>  
+        </div>  
+         
+            
+    </div>
 </body>
 </html>

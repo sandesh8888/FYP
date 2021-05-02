@@ -1,0 +1,84 @@
+{% extends "customer_management/base.htm"%}
+
+{% block content %}
+    <div class="main-content" style="width:100%">
+        <div class="header-title">
+            <h2>
+                <label>
+                    Transactions
+                </label>
+            </h2>
+            <hr>
+        </div> 
+        <div>
+            <button type="button" class="btn btn-outline-info active" id="dealer-btn" onclick="display_dealer()">Dealer Transactions</button>
+            <button type="button" class="btn btn-outline-info" id="customer-btn" onclick="display_customer()">Customer Transactions</button>
+            <hr>
+        </div>
+        <div id="dealer-table" style="display: block;" class="table-responsive">
+            <table id='myTable' class="table table-hover">
+                <caption>Dealer Transactions</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Dealer Company</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Paid Amount</th>
+                        <th scope="col">Received Amount</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dealer in dealer %}
+                    <tr>
+                        <td>{{dealer.dealer.company}}</td>
+                        <td>{{dealer.product.item_name}}</td>
+                        <td>{{dealer.total_amount}}</td>
+                        <td>{{dealer.paid_amount}}</td>
+                        <td>{{dealer.remaining_due}}</td>
+                        <td>{{dealer.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div id="customer-table" style="display: none;" class="table-responsive">
+            <table id='customerTable' class="table table-hover">
+                <caption>Customer Transactions</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Paid Amount</th>
+                        <th scope="col">Received Amount</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                
+            </table>
+
+        </div>
+
+    </div>
+    <script>
+        var dealer = document.getElementById("dealer-table");
+        var customer = document.getElementById("customer-table");
+        function display_customer() {
+            if (dealer.style.display=="block"){
+                dealer.style.display="none";
+                customer.style.display="block"
+                document.getElementById("dealer-btn").className="btn btn-outline-info";
+                document.getElementById("customer-btn").className="btn btn-outline-info active";
+            }
+        }
+        function display_dealer(){
+            if (customer.style.display=="block"){
+                customer.style.display="none";
+                dealer.style.display="block"
+                document.getElementById("dealer-btn").className="btn btn-outline-info active";
+                document.getElementById("customer-btn").className="btn btn-outline-info";
+            }
+        }
+    </script>
+{% endblock %}
