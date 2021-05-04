@@ -1,7 +1,7 @@
 {% extends "customer_management/base.htm" %}
 
 {% block content %}
-<div class="main-content">
+<div class="main-content" style="padding-left: 15%;">
   <header class="header">
       <div class="header-title">
           <h2>
@@ -71,7 +71,7 @@
               }
             </script>
           </div>
-          <div class="col">
+          <div class="col" id="paid-amount" style="display: none;">
             <div class="form-outline">
               <label class="form-label" for="form6Example3">Amount Paid</label>
               <div class="input-group mb-3">
@@ -152,7 +152,7 @@
         <!-- Number input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example6">Phone</label>
-          <input type="number" id="form6Example6" class="form-control"  name="phone" />
+          <input type="number" id="form6Example6" class="form-control"  name="phone"/>
         
         </div>
   
@@ -161,10 +161,13 @@
           var btn = document.getElementById("show-btn");
           function display() {
             var x = document.getElementById("dealer-info");
-            if (x.style.display === "none") {
+            var amount = document.getElementById("paid-amount");
+            if (x.style.display === "none" || amount.style.display=="none") {
               x.style.display = "block";
+              amount.style.display="block";
             } else {
               x.style.display = "none";
+              amount.style.display = "none";
             }
           }
       </script>

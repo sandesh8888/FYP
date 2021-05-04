@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Products, DealerTransaction, CustomerTransaction
 from dealers.models import Dealers
+from CustomerManagement.models import Customer
 from django.contrib import messages
 from .forms import IssueForm, ReceiveForm
-import datetime
+from datetime import datetime,date 
 # Create your views here.
 
 def display_products(request):
@@ -36,20 +37,77 @@ def create(request):
         products.save() 
         
         if get_dealer_status != False:
-            dealers = Dealers(firstname=fname, lastname=lname, company=get_company, address=get_address, email_address=get_email_address, phone=get_phone)
-            dealers.save()
-            products.dealer = Dealers(dealers.id)
-            products.save()
-            dealer_tran = DealerTransaction(total_amount=get_amount, date=datetime.date.today(),paid_amount=get_paid_amount)
-            dealer_tran.dealer=Dealers(dealers.id)
-            dealer_tran.product=Products(products.id)
-            dealer_tran.remaining_due=int(dealer_tran.total_amount) - int(dealer_tran.paid_amount)
-            dealer_tran.save()
-        
+            dealers = Dealers(firstname=fname, lastname=lname, company=get_company, address=get_address, email_address=get_email_address, phone=get_phone, added_date=date.today())
+            
+            duplicates = Dealers.objects.filter(phone=get_phone)
+            
+            if duplicates.count()==0:
+                dealers.save()
+                products.dealer.set = Dealers(dealers.id)
+                products.save()
+                dealer_tran = DealerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+                dealer_tran.dealer=Dealers(dealers.id)
+                dealer_tran.product=Products(products.id)
+                dealer_tran.remaining_due=int(float(dealer_tran.total_amount)) - int(float(dealer_tran.paid_amount))
+                dealer_tran.save()
+            elif (duplicates[0].added_date <= dealers.added_date):
+                print("You are already registered!!!")
+                dealers.save()
+                dealers.delete()
+                products.dealer.set = Dealers(duplicates[0].id)
+                products.save()
+                dealer_tran = DealerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+                dealer_tran.dealer=Dealers(duplicates[0].id)
+                dealer_tran.product=Products(products.id)
+                dealer_tran.remaining_due=int(float(dealer_tran.total_amount)) - int(float(dealer_tran.paid_amount))
+                dealer_tran.save()                
+                            
         print("Data inserted successfully!!")
         
     return render(request, 'product_add.htm')
 
+def product_sell_to_customer(request, id):
+    product = Products.objects.get(id=id)
+    if request.method == "POST":
+        get_item = request.POST['item']
+        get_quantity = request.POST['quantity']
+        fname = request.POST['firstname']
+        lname = request.POST['lastname']
+        get_company = request.POST['company']
+        get_address = request.POST['address']
+        get_email_address = request.POST['email_address']
+        get_phone = request.POST['phone']
+        get_rate = request.POST['rate']
+        get_amount = request.POST['amount'] 
+        get_paid_amount = request.POST['paid-amount']
+
+        customers = Customer(firstname=fname, lastname=lname, company=get_company, address=get_address, email_address=get_email_address, phone=get_phone, added_date=date.today())
+        
+        duplicates = Customer.objects.filter(phone=get_phone)
+        if duplicates.count()==0:
+            customers.save()
+            product.customer.set = Customer(customers.id)
+            product.quantity = int(product.quantity) - int(get_quantity)
+            product.save()
+            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+            customer_tran.customer=Customer(customers.id)
+            customer_tran.product=Products(product.id)
+            customer_tran.remaining_due=int(float(customer_tran.total_amount)) - int(float(customer_tran.paid_amount))
+            customer_tran.save()
+        elif (duplicates[0].added_date <= customers.added_date):
+            print("You are already registered!!!")
+            customers.save()
+            customers.delete()
+            product.customer.set = Customer(duplicates[0].id)
+            product.quantity = int(product.quantity) - int(get_quantity)
+            product.save()
+            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+            customer_tran.customer=Customer(duplicates[0].id)
+            customer_tran.product=Products(product.id)
+            customer_tran.remaining_due=int(float(customer_tran.total_amount)) - int(float(customer_tran.paid_amount))
+            customer_tran.save()
+
+    return redirect('/products')
 
 def delete(request, id):
     product = Products.objects.get(id=id)
@@ -71,6 +129,21 @@ def product_detail(request, pk):
 
 def transactions(request):
     dealer = DealerTransaction.objects.all()
-    context = {'dealer':dealer}
+    customer = CustomerTransaction.objects.all()
+    context = {'dealer':dealer, 'customer':customer}
     return render(request, "transactions.htm", context)
+
+def product_sell(request,pk):
+    queryset = Products.objects.get(id=pk)
+	
+    context = {
+		"title": queryset.item_name,
+		"queryset": queryset,
+	}
+    return render(request, "product_sell.htm", context)
+
+
+def receipt_form(request):
+    return render(request, "receipt_form.htm")
+
 

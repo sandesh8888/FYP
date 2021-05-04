@@ -1,6 +1,130 @@
 {% extends "customer_management/base.htm" %}
 
 {% block content %}
-
+<div class="main-content" style="padding-left: 15%;">
+    <div class="sell-form">
+        <form action="{% url 'productmanagement:sellproduct' queryset.id %}" method="POST">
+            {% csrf_token %}
+            <div class="header-title">
+                <h2>
+                    <label>
+                        Customer Details
+                    </label>
+                </h2>
+                <hr>
+            </div>
+            <div class="customer-details">
+                <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example1">First name</label>
+                        <input type="text" id="form6Example1" class="form-control"  name="firstname" required/>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example2">Last name</label>
+                        <input type="text" id="form6Example2" class="form-control"  name="lastname" required/>
+                      </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form6Example3">Company name</label>
+                            <input type="text" id="form6Example3" class="form-control"  name="company" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">            
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form6Example4">Address</label>
+                            <input type="text" id="form6Example4" class="form-control"  name="address" required/>                  
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form6Example5">Email Address</label>
+                            <input type="email" id="form6Example5" class="form-control"  name="email_address" required/>                  
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form6Example6">Phone</label>
+                            <input type="number" id="form6Example6" class="form-control"  name="phone" required/>                  
+                          </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="header-title">
+                <h2>
+                    <label>
+                        Product Details
+                    </label>
+                </h2>
+                <hr>
+            </div>
+            <div class="product-details">
+                <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example2">Item Name</label>
+                        <input type="text" id="form6Example2" class="form-control"  name="item" value="{{queryset.item_name}}" required/>                        
+                    </div>
+                    </div>                
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example3">Quantity</label>
+                        <input type="number" id="quantity" class="form-control"  name="quantity" required/>
+                      </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example3">Rate</label>
+                        <input type="number" id="rate" class="form-control"  name="rate" required/>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example3">Total Amount</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <button id="total-btn" type="button" class="input-group-text" onclick="calculate()">Total</button>
+                          </div>
+                          <input type="text" id="amount" class="form-control"  name="amount" required/>
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                          </div>
+                        </div>
+                      </div>
+                      <script>
+                        function calculate(){
+                          var rate=document.getElementById("rate").value;
+                          var quantity=document.getElementById("quantity").value;
+                          var total=rate*quantity;
+                          document.getElementById("amount").value=total; 
+                        }
+                      </script>
+                    </div>
+                    <div class="col" id="paid-amount">
+                      <div class="form-outline">
+                        <label class="form-label" for="form6Example3">Amount Paid</label>
+                        <div class="input-group mb-3">
+                          <input type="number" id="paid-amount" class="form-control"  name="paid-amount" />
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>                  
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #023e4d;">Sell</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

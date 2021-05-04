@@ -1,13 +1,14 @@
 {% extends "customer_management/base.htm"%}
 
 {% block content %}
-<div class="main-content">
+<div class="main-content" style="padding-left: 15%;">
     <div class="header-title">
         <h2>
             <label>
                 {{queryset.item_name}}
             </label>
         </h2>
+        <hr>
     </div>    
     <div class="display_table">
         <table id='myTable' class="table table-hover">
@@ -16,8 +17,8 @@
                     <tr>
                         <th scope="col">ITEM</th>
                         <th scope="col">QUANTITY</th>
-                        <th scope="col">LAST UPDATED</th>
-                        <th scope="col">REORDER LEVEL</th>
+                        <th scope="col">UPLOADED ON</th>
+                        
                         <th scope="col">SELL {{queryset.item_name}}</th>
                     </tr>
                 </thead>
@@ -26,8 +27,8 @@
                         <td>{{queryset.item_name}}</td>
                         <td>{{queryset.quantity}}</td>
                         <td>{{queryset.last_updated}}</td>
-                        <td>{{queryset.reorder_level}}</td>
-                        <td><a href='#issue'><div class='btn btn-danger'>SELL</div></a></td>
+                        
+                        <td><a href='{% url "productmanagement:sellform" queryset.id %}'><div class='btn btn-danger'>SELL</div></a></td>
                     </tr>
                 </tbody>
             

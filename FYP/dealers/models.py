@@ -12,6 +12,7 @@ class Dealers(models.Model):
     address = models.CharField(max_length=100)
     email_address = models.EmailField(max_length=254)
     phone = PhoneNumberField()
+    added_date = models.DateField(blank=True)
 
     def __str__(self):
         return self.firstname

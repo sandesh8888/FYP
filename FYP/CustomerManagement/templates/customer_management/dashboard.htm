@@ -1,7 +1,7 @@
 {% extends "customer_management/base.htm"%}
 
 {% block content %}
-<div class="main-content">
+<div class="main-content" style="padding-left: 15%;">
     <header class="header">
         <div class="header-title">
             <h2>
@@ -12,6 +12,100 @@
         </div>
         <hr>
     </header>
+    <div>
+        <div class="row">
+            <div class="col mb-4">
+                <div class="card text-white bg-info mb-3" id="total-dealers" style="width: 25rem; height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Total Dealers</h5>
+                      <hr>
+                      <p class="card-text"><h1 class="display-3">{{dealers}}</h1></p>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4">
+                <div class="card text-white bg-info mb-3" id="total-customers" style="width: 25rem; height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Total Customers</h5>
+                      <hr> 
+                      <p class="card-text"><h1 class="display-3">{{customers}}</h1></p>
+                      
+                    </div>
+                </div>
+            </div>    
+            <div class="col mb-4">
+                <div class="card text-white bg-info mb-3" id="total-products" style="width: 25rem; height:12rem">
+                    <div class="card-body">
+                      <h5 class="card-title">Total Products</h5>     
+                      <hr>                 
+                      <p class="card-text"><h1 class="display-3">{{products}}</h1></p>
+                      
+                    </div>
+                </div>
+            </div>      
+        </div>
+        <div class="row">
+            <div class="col mb-4">
+                <div class="card" style="width: 52rem; height: 38rem">
+                     
+                </div>
+            </div>
+            <div class="col mb-4" style="padding-left: 28px;">
+                <div class="row">
+                    <div class="col">
+                        <div class="card text-white bg-success mb-3" id="new-dealer" style="width: 11rem; height:10rem">
+                            <div class="card-body">
+                              <h5 class="card-title">Dealers Today</h5>   
+                              <hr>                       
+                              <p class="card-text"><h5 class="display-6">{{recent_dealer}}</h5></p>                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-dark mb-3" id="new-dealer" style="width: 11rem; height:10rem">
+                            <div class="card-body">
+                              <h5 class="card-title">Oldest Dealer</h5> 
+                              <hr>                         
+                              <p class="card-text"><h5 class="display-6">{{oldest_dealer}} {{oldest_dealer.lastname}}</h5></p>                              
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card text-white bg-success mb-3" id="new-customer" style="width: 11rem; height:10rem">
+                            <div class="card-body">
+                              <h5 class="card-title">Customers Today</h5> 
+                              <hr>                         
+                              <p class="card-text"><h5 class="display-6">{{recent_customer}}</h5></p>                          
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-white bg-dark mb-3" id="new-customer" style="width: 11rem; height:10rem">
+                            <div class="card-body">
+                              <h5 class="card-title">Oldest Customer</h5>   
+                              <hr>                       
+                              <p class="card-text"><h5 class="display-6">{{oldest_customer}} {{oldest_customer.lastname}}</h5></p>                          
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="card text-white bg-success mb-3" id="top-product" style="width: 25rem; height:12rem">
+                        <div class="card-body">
+                          <h5 class="card-title">Top Selling Product</h5>                          
+                          <p class="card-text"></p>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </div>
 
 {% endblock content %}

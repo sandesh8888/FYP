@@ -2,7 +2,7 @@
 
 
 {% block content %}
-        <div class="main-content">
+        <div class="main-content" style="padding-left: 15%; width:100%; padding-right:0%">
             <header class="header">
                 <div class="header-title">
                     <h2>
@@ -31,6 +31,7 @@
                             <th scope="col">Address</th>
                             <th scope="col">Email Address</th>
                             <th scope="col">Phone</th>
+                            <th scope="col">Added Date</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
@@ -43,6 +44,7 @@
                             <td>{{dealers.address}}</td>
                             <td>{{dealers.email_address}}</td>
                             <td>{{dealers.phone}}</td>
+                            <td>{{dealers.added_date}}</td>
                             <td>
                                 <a href="{% url 'dealers:delete' dealers.id %}">
                                     <button type="button" class="btn btn-danger">

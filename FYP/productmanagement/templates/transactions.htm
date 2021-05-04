@@ -1,7 +1,7 @@
 {% extends "customer_management/base.htm"%}
 
 {% block content %}
-    <div class="main-content" style="width:100%">
+    <div class="main-content" style="padding-left: 15%;">
         <div class="header-title">
             <h2>
                 <label>
@@ -24,7 +24,7 @@
                         <th scope="col">Product</th>
                         <th scope="col">Total Amount</th>
                         <th scope="col">Paid Amount</th>
-                        <th scope="col">Received Amount</th>
+                        <th scope="col">Remaining Amount</th>
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
@@ -50,12 +50,26 @@
                     <tr>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Product</th>
+                        <th scope="col">Total Amount</th>
                         <th scope="col">Paid Amount</th>
-                        <th scope="col">Received Amount</th>
+                        <th scope="col">Remaining Amount</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Print Receipt</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+                    {% for customer in customer %}
+                    <tr>
+                        <td>{{customer.customer.firstname}} {{customer.customer.lastname}}</td>
+                        <td>{{customer.product.item_name}}</td>
+                        <td>{{customer.total_amount}}</td>
+                        <td>{{customer.paid_amount}}</td>
+                        <td>{{customer.remaining_due}}</td>
+                        <td>{{customer.date}}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
 
         </div>
