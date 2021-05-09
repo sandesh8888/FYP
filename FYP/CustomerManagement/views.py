@@ -10,6 +10,8 @@ from django.db.models import Count
 from productmanagement.models import Products, DealerTransaction, CustomerTransaction
 from dealers.models import Dealers
 from datetime import date
+from django.db.models import Sum
+from django.contrib import messages
 
 # Create your views here.
 
@@ -21,8 +23,17 @@ def dashboard(request):
     recent_customer = Customer.objects.filter(added_date=date.today()).count()
     oldest_dealer = Dealers.objects.earliest('added_date')
     oldest_customer = Customer.objects.earliest('added_date')
-    top_product = CustomerTransaction.objects.values('product').annotate(dcount=Count('product'))
+    top_product_list = CustomerTransaction.objects.filter().values('product').annotate(dcount=Count('product'))
+    total_paid_dealer = DealerTransaction.objects.aggregate(Sum('paid_amount'))
+    total_paid_customer = CustomerTransaction.objects.aggregate(Sum('paid_amount'))
+    total_remaining_dealer = DealerTransaction.objects.aggregate(Sum('remaining_due'))
+    total_remaining_customer = CustomerTransaction.objects.aggregate(Sum('remaining_due'))
+    top_product=list(map(lambda x : x['dcount'], top_product_list))
     print(top_product)
+    transaction_by_date = CustomerTransaction.objects.filter().values('product_id').annotate(data_sum=Sum('paid_amount'))
+    date_dict = list(map(lambda x : x['product_id'], transaction_by_date))
+    data_dict = list(map(lambda x : x['data_sum'], transaction_by_date))
+    
     context={
         'dealers': dealers,
         'customers':customers,
@@ -31,6 +42,14 @@ def dashboard(request):
         'recent_customer':recent_customer,
         'oldest_dealer':oldest_dealer,
         'oldest_customer':oldest_customer,
+        'total_paid_dealer':total_paid_dealer,
+        'total_paid_customer':total_paid_customer,
+        'total_remaining_dealer':total_remaining_dealer,
+        'total_remaining_customer':total_remaining_customer,
+        'labels':date_dict,
+        'data':data_dict,
+        'top_product':max(top_product),
+
     }
     
     return render(request, "customer_management/dashboard.htm", context)
@@ -61,7 +80,7 @@ def create(request):
             print("You are already registered!!!") 
             customer.save()         
             customer.delete()
-        
+        messages.success(request, "Customer added successfully")
         print("Data inserted successfully!!")
         redirect('/customer')
 
@@ -71,6 +90,7 @@ def create(request):
 def delete(request, id):
     customer = Customer.objects.get(id=id)
     customer.delete()
+    messages.success(request, "Customer deleted successfully")
     print("Deleted successfully!!")
     return redirect('/customer')
 

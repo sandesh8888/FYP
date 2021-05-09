@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'CustomerManagement',
     'productmanagement',
     'dealers',
+    'crispy_forms',
 
 ]
 
@@ -147,8 +148,9 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = '/usermanagement/user_login/'
 
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# EMAIL_FILE_PATH = '/sent_emails'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'testsite_app'

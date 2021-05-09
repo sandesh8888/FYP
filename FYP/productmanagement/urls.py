@@ -12,5 +12,9 @@ urlpatterns = [
     path('sellform/<str:pk>/', views.product_sell, name="sellform"),
     path('sell/<str:id>/', views.product_sell_to_customer, name="sellproduct"),
     path('receiptform/',views.receipt_form, name="receipt_form"),
+    path('updateTransaction/<str:id>/',views.update_transaction, name="update_transaction"),
+    path('update/<str:id>/', views.update, name="update"),
+    path('updateCustomer/<str:id>', views.update_customer, name="update_customer"),
+    path('updateCustomerTransaction/<str:id>/',views.update_customer_transaction, name="update_customer_transaction"),
 ]
 

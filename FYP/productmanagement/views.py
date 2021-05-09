@@ -51,7 +51,7 @@ def create(request):
                 dealer_tran.remaining_due=int(float(dealer_tran.total_amount)) - int(float(dealer_tran.paid_amount))
                 dealer_tran.save()
             elif (duplicates[0].added_date <= dealers.added_date):
-                print("You are already registered!!!")
+                
                 dealers.save()
                 dealers.delete()
                 products.dealer.set = Dealers(duplicates[0].id)
@@ -142,6 +142,50 @@ def product_sell(request,pk):
 	}
     return render(request, "product_sell.htm", context)
 
+def update_transaction(request, id):
+    queryset = DealerTransaction.objects.get(id=id)
+    
+    if request.method=="POST":
+        get_total = request.POST['amount']
+        get_paid_amount = request.POST['paid-amount']
+
+        queryset.total_amount=get_total
+        queryset.paid_amount=get_paid_amount
+        queryset.remaining_due=int(float(queryset.total_amount))-int(float(queryset.paid_amount))
+        queryset.save()
+        
+    print(queryset.remaining_due)
+    return redirect('/transactions')
+
+def update(request, id):
+    queryset = DealerTransaction.objects.get(id=id)
+    
+    context = {
+        "queryset": queryset,
+        
+    }
+    return render(request, "update_transaction.htm", context)
+
+def update_customer(request, id):
+    customerset = CustomerTransaction.objects.get(id=id)
+    context={
+        "customerset": customerset
+    }
+    return render(request, "update_transaction_c.htm", context)
+
+def update_customer_transaction(request, id):
+    customerset = CustomerTransaction.objects.get(id=id)
+    
+    if request.method=="POST":
+        get_total = request.POST['amount']
+        get_paid_amount = request.POST['paid-amount']
+
+        customerset.total_amount=get_total
+        customerset.paid_amount=get_paid_amount
+        customerset.remaining_due=int(float(customerset.total_amount))-int(float(customerset.paid_amount))
+        customerset.save()
+        
+    return redirect('/transactions')
 
 def receipt_form(request):
     return render(request, "receipt_form.htm")

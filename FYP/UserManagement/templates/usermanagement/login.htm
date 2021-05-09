@@ -1,7 +1,5 @@
 {% extends "usermanagement/base.htm" %}
-{% block links %}
-    
-{% endblock %}
+
 {% block body_block %}
 
 <div class="container" style="width: 500px; align-content:center; height:670px; padding:5%">
@@ -25,13 +23,19 @@
       
         <div class="row mb-4">        
           <div class="col">
-            <a href="#!">Forgot password?</a>
+            <a href="/password_reset">Forgot password?</a>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-info btn-block" value="Login" style="background-color: #023e4d; color:aliceblue">Login</button>
+        <button type="submit" class="btn btn-outline-info btn-block" value="Login" style="background-color: #023e4d; color:aliceblue; padding-bottom:10px">Login</button>
       </form>
-
+      {% if messages %}
+      <div class="card text-white bg-danger mb-3" style="padding: 10px;">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+      </div>  
+      {% endif %}
   </div>
     
 </div>

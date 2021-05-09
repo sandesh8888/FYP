@@ -1,0 +1,161 @@
+{% extends "customer_management/base.htm"%}
+
+{% block content%}
+<div class="main-content" style="padding-left: 15%;">
+    <header class="header">
+        <div class="header-title">
+            <h2>
+                <label>
+                    Update {{customerset.product.item_name}}
+                </label>
+            </h2>          
+        </div>
+        <hr>
+    </header>
+  
+    <div class="content-form">
+      <form action="{% url 'productmanagement:update_customer_transaction' customerset.id %}" method="POST">
+        {% csrf_token %}  
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example2">Item Name</label>
+              <input type="text" id="form6Example2" class="form-control"  name="item" value="{{customerset.product.item_name}}" readonly/>
+            
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label class="form-label" for="form6Example1">Category</label>
+              <select class="form-control"  name="category"value="{{customerset.product.category}}" >
+                <option>Select from below</option>
+                <option>Poultry</option>
+                <option >Grains</option>
+                <option>Accessories</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example3">Quantity</label>
+              <input type="number" id="quantity" class="form-control"  name="quantity" value="{{customerset.product.quantity}}" readonly/>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form6Example3">Rate</label>
+                <input type="number" id="rate" class="form-control"  name="rate" value="{{customerset.product.rate}}" readonly/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form6Example3">Total Amount</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <button id="total-btn" type="button" class="input-group-text" onclick="calculate()">Total</button>
+                  </div>
+                  <input type="text" id="amount" class="form-control"  name="amount" value="{{customerset.total_amount}}" />
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                </div>
+              </div>
+              <script>
+                function calculate(){
+                  var rate=document.getElementById("rate").value;
+                  var quantity=document.getElementById("quantity").value;
+                  var total=rate*quantity;
+                  document.getElementById("amount").value=total; 
+                }
+              </script>
+            </div>
+            <div class="col" id="paid-amount">
+              <div class="form-outline">
+                <label class="form-label" for="form6Example3">Amount Paid</label>
+                <div class="input-group mb-3">
+                  <input type="number" id="paid-amount" class="form-control" value="{{customerset.paid_amount}}" name="paid-amount" />
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          
+        </div>
+        
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example4">Received Date</label>
+              <input type="date" id="form6Example4" class="form-control"value="{{customerset.product.received_date}}"  name="mfdate" />     
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form6Example4">Expiry Date</label>
+              <input type="date" id="form6Example4" class="form-control" value="{{customerset.product.expiry_date}}"  name="expdate" />     
+            </div>
+          </div>
+          
+        </div>   
+  
+        <!-- Text input -->
+        
+        <div id="dealer-info">
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form6Example1">First name</label>
+                <input type="text" id="form6Example1" class="form-control" value="{{customerset.customer.firstname}}" name="firstname" readonly/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form6Example2">Last name</label>
+                <input type="text" id="form6Example2" class="form-control" value="{{custoemrset.customer.lastname}}" name="lastname" readonly/>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example3">Company name</label>
+            <input type="text" id="form6Example3" class="form-control" value="{{customerset.customer.company}}"  name="company" readonly/>
+          
+          </div>
+    
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example4">Address</label>
+            <input type="text" id="form6Example4" class="form-control" value="{{customerset.customer.address}}"  name="address" readonly/>
+          
+          </div>
+    
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example5">Email Address</label>
+            <input type="email" id="form6Example5" class="form-control" value="{{customerset.customer.email_address}}"  name="email_address" readonly/>
+          
+          </div>
+    
+          <!-- Number input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example6">Phone</label>
+            <input type="number" id="form6Example6" class="form-control" value="{{customerset.customer.phone}}"  name="phone" readonly/>
+          
+          </div>
+    
+        </div>
+                
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #023e4d;">Update Products</button>
+      </form>
+      <a href="{% url 'productmanagement:transactions' %}">Go Back</a>
+      
+    </div>
+  </div>
+  
+{% endblock %}

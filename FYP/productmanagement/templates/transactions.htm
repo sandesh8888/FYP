@@ -26,6 +26,7 @@
                         <th scope="col">Paid Amount</th>
                         <th scope="col">Remaining Amount</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                         <td>{{dealer.paid_amount}}</td>
                         <td>{{dealer.remaining_due}}</td>
                         <td>{{dealer.date}}</td>
+                        <td><a href="{% url 'productmanagement:update' dealer.id %}"><em class="lar la-edit"></em></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -54,7 +56,8 @@
                         <th scope="col">Paid Amount</th>
                         <th scope="col">Remaining Amount</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Print Receipt</th>
+                        <th scope="col">Edit</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +69,7 @@
                         <td>{{customer.paid_amount}}</td>
                         <td>{{customer.remaining_due}}</td>
                         <td>{{customer.date}}</td>
-                        <td></td>
+                        <td><a href="{% url 'productmanagement:update_customer' customer.id %}"><em class="lar la-edit"></em></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -15,7 +15,7 @@
     <div>
         <div class="row">
             <div class="col mb-4">
-                <div class="card text-white bg-info mb-3" id="total-dealers" style="width: 25rem; height:12rem">
+                <div class="card text-white bg-info mb-3" id="total-dealers" >
                     <div class="card-body">
                       <h5 class="card-title">Total Dealers</h5>
                       <hr>
@@ -47,8 +47,8 @@
         </div>
         <div class="row">
             <div class="col mb-4">
-                <div class="card" style="width: 52rem; height: 38rem">
-                     
+                <div class="card" style="width: 52rem; ">
+                    <canvas id="line-chart" style="height:34rem"></canvas>
                 </div>
             </div>
             <div class="col mb-4" style="padding-left: 28px;">
@@ -93,17 +93,82 @@
                         </div>
                     </div>                    
                 </div>
-                <div class="row">
-                    <div class="card text-white bg-success mb-3" id="top-product" style="width: 25rem; height:12rem">
+                <div class="row" style="padding-left:14px">
+                    <div class="card text-white bg-primary mb-3" id="top-product" style="width: 24rem; height:12rem; ">
                         <div class="card-body">
-                          <h5 class="card-title">Top Selling Product</h5>                          
-                          <p class="card-text"></p>
+                          <h5 class="card-title">Highest Item Count</h5>                          
+                          <p class="card-text"><h1 class="display-3">{{top_product}}</h1></p>
                           
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
+            <script>                
+                const data = {
+                    labels:{{labels}},
+                    datasets: [{
+                        label: 'Customer Transaction',
+                        data: {{data}},
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                };
+                const config = {
+                    type: 'line',
+                    data: data,
+                };
+                window.onload = function() {
+                  var ctx = document.getElementById('line-chart').getContext('2d');
+                  window.myPie = new Chart(ctx, config);
+                };
+            </script>
         </div>
+        <div class="row">
+            <div class="col mb-4">
+                <div >
+                     <div class="row">                         
+                        <div class="col mb-4">
+                            <div class="card text-white bg-danger mb-3" >
+                                <div class="card-body">
+                                  <h5 class="card-title">Paid to dealers</h5>   
+                                  <hr>                       
+                                  <p class="card-text"><h5 class="display-6">{{total_paid_dealer.paid_amount__sum}}</h5></p>                              
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">                             
+                            <div class="card border-success mb-3" >
+                                <div class="card-body">
+                                  <h5 class="card-title">Unpaid to Dealers</h5>                                   
+                                  <hr>                                                          
+                                  <p class="card-text"><h5 class="display-6">{{total_remaining_dealer.remaining_due__sum}}</h5></p>                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card border-success mb-3" >
+                                <div class="card-body">
+                                  <h5 class="card-title">Paid by Customer</h5>   
+                                  <hr>                       
+                                  <p class="card-text"><h5 class="display-6">{{total_paid_customer.paid_amount__sum}}</h5></p>                              
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col mb-4">
+                            <div class="card text-white bg-danger mb-3" >
+                                <div class="card-body">
+                                  <h5 class="card-title">Unpaid by Customer</h5>   
+                                  <hr>                       
+                                  <p class="card-text"><h5 class="display-6">{{total_remaining_customer.remaining_due__sum}}</h5></p>                              
+                                </div>
+                            </div>
+                         </div>
+                     </div>                    
+                </div>
+            </div>
+            
+        </div>
+        
         
     </div>
 </div>

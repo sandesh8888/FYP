@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls import include,url
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     
@@ -25,5 +25,8 @@ urlpatterns = [
     path('',include('CustomerManagement.urls')),
     path('',include('dealers.urls')),
     path('',include('productmanagement.urls')),
+    
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="usermanagement/password_reset_confirm.htm"), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='usermanagement/password_reset_complete.htm'), name='password_reset_complete'), 
 
 ]

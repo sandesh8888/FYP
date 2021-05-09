@@ -8,7 +8,6 @@ class Products(models.Model):
         category = models.CharField(max_length=50, blank=True, null=True)
         quantity = models.IntegerField(default='0', blank=True, null=True)
         rate = models.FloatField(blank=False,null=False)
-        vat = 0.13
         amount = models.FloatField(blank=False,null=False)
         receive_quantity = models.IntegerField(default='0', blank=True, null=True)
         received_date = models.DateField(blank=True, null=True)
