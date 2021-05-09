@@ -8,6 +8,11 @@ from CustomerManagement.models import Customer
 from django.contrib import messages
 from .forms import IssueForm, ReceiveForm
 from datetime import datetime,date 
+from django.template.loader import get_template, render_to_string
+from .utils import render_to_pdf 
+from django.views.generic import View
+from django.views.generic.detail import SingleObjectMixin
+
 # Create your views here.
 
 def display_products(request):
@@ -174,8 +179,7 @@ def update_customer(request, id):
     return render(request, "update_transaction_c.htm", context)
 
 def update_customer_transaction(request, id):
-    customerset = CustomerTransaction.objects.get(id=id)
-    
+    customerset = CustomerTransaction.objects.get(id=id)    
     if request.method=="POST":
         get_total = request.POST['amount']
         get_paid_amount = request.POST['paid-amount']
@@ -190,4 +194,10 @@ def update_customer_transaction(request, id):
 def receipt_form(request):
     return render(request, "receipt_form.htm")
 
+def print_receipt_customer(request, id):
+    queryset = CustomerTransaction.objects.get(id=id)
+    context = {
+        "queryset":queryset
+    }
 
+    return render(request, "receipt_form.htm", context)

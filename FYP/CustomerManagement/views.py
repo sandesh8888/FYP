@@ -12,6 +12,7 @@ from dealers.models import Dealers
 from datetime import date
 from django.db.models import Sum
 from django.contrib import messages
+from django.db.models import Max
 
 # Create your views here.
 
@@ -24,12 +25,16 @@ def dashboard(request):
     oldest_dealer = Dealers.objects.earliest('added_date')
     oldest_customer = Customer.objects.earliest('added_date')
     top_product_list = CustomerTransaction.objects.filter().values('product').annotate(dcount=Count('product'))
+    
     total_paid_dealer = DealerTransaction.objects.aggregate(Sum('paid_amount'))
     total_paid_customer = CustomerTransaction.objects.aggregate(Sum('paid_amount'))
     total_remaining_dealer = DealerTransaction.objects.aggregate(Sum('remaining_due'))
     total_remaining_customer = CustomerTransaction.objects.aggregate(Sum('remaining_due'))
-    top_product=list(map(lambda x : x['dcount'], top_product_list))
-    print(top_product)
+    top_product=list(map(lambda x : x['product'], top_product_list))
+
+    print(top_product_list)
+
+    print(Products.objects.get(id=top_product[0]))
     transaction_by_date = CustomerTransaction.objects.filter().values('product_id').annotate(data_sum=Sum('paid_amount'))
     date_dict = list(map(lambda x : x['product_id'], transaction_by_date))
     data_dict = list(map(lambda x : x['data_sum'], transaction_by_date))
@@ -48,7 +53,7 @@ def dashboard(request):
         'total_remaining_customer':total_remaining_customer,
         'labels':date_dict,
         'data':data_dict,
-        'top_product':max(top_product),
+        'top_product':Products.objects.get(id=top_product[0]),
 
     }
     

@@ -2,6 +2,7 @@ from django.conf.urls import url
 from productmanagement import views
 from django.urls import path, include
 
+
 app_name='productmanagement'
 urlpatterns = [
     path('products/', views.display_products, name="index"),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('update/<str:id>/', views.update, name="update"),
     path('updateCustomer/<str:id>', views.update_customer, name="update_customer"),
     path('updateCustomerTransaction/<str:id>/',views.update_customer_transaction, name="update_customer_transaction"),
+    path('printReceipt/<str:id>',views.print_receipt_customer, name="print_receipt_customer"),
 ]
 
