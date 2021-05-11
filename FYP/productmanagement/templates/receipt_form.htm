@@ -31,8 +31,8 @@
                     <div class="card-header p-4">
                         
                         <div class="float-right">
-                            <h3 class="mb-0">Invoice <input type="text" value="{{queryset.id}}"></h3>
-                            Date: <input type="text" value="{{queryset.date}}">
+                            <h3 class="mb-0">Invoice <input type="text" value="{{queryset.id}}"class="form-control"></h3>
+                            Date: <input type="text" value="{{queryset.date}}"class="form-control">
                         </div>
                     </div>
                     <div class="card-body">
@@ -45,10 +45,10 @@
                             </div>
                             <div class="col-sm-6 ">
                                 <h4 class="mb-3">To:</h4>
-                                <div>Name: <input type="text" name="name" value="{{queryset.customer.firstname}} {{queryset.customer.lastname}}"></div>
-                                <div>Address: <input type="text" name="address" value="{{queryset.customer.address}}"></div>
-                                <div>Email: <input type="email" name="email" value="{{queryset.customer.email_address}}"></div>
-                                <div>Phone: <input type="number" value="{{queryset.customer.phone}}"></div>
+                                <div>Name: <input type="text"class="form-control" name="name" value="{{queryset.customer.firstname}} {{queryset.customer.lastname}}"></div>
+                                <div>Address: <input type="text"class="form-control" name="address" value="{{queryset.customer.address}}"></div>
+                                <div>Email: <input type="email"class="form-control" name="email" value="{{queryset.customer.email_address}}"></div>
+                                <div>Phone: <input type="number"class="form-control" value="{{queryset.customer.phone}}"></div>
                             </div>
                         </div>
                         <div class="table-responsive-sm">
@@ -66,25 +66,28 @@
                                 <tbody>
                                     <tr id="additem">
                                         <td class="center">1</td>
-                                        <td class="left strong"><input type="text" value="{{queryset.product.item_name}}"></td>                                        
-                                        <td class="right"><input type="number" name="rate" id="rate" style="width: 100px;" value="{{queryset.product.rate}}"></td>
-                                        <td class="center"><input type="number" name="quantity" id="quantity" style="width: 100px;" value="{{queryset.product.quantity}}"></td>
+                                        <td class="left strong">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" value="{{queryset.product.item_name}}">
+                                            </div>                                            
+                                        </td>                                        
                                         <td class="right">
                                             <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                  <button id="total-btn" type="button" class="input-group-text" onclick="calculate()">Total</button>
-                                                </div>
+                                                <input type="number" name="rate" class="form-control" id="rate" style="width: 100px;" value="{{queryset.product.rate}}">
+                                            </div>
+                                        </td>
+                                        <td class="center">
+                                            <div class="input-group mb-3">
+                                                <input type="number" name="quantity" class="form-control" id="quantity" style="width: 100px;" value="{{queryset.quantity}}">
+                                            </div>                                            
+                                        </td>
+                                        <td class="right">
+                                            <div class="input-group mb-3">
+                                                
                                                 <input type="text" id="amount" class="form-control"  name="amount" value="{{queryset.total_amount}}">
                                         
                                               </div>
-                                              <script>
-                                                function calculate(){
-                                                  var rate=document.getElementById("rate").value;
-                                                  var quantity=document.getElementById("quantity").value;
-                                                  var total=rate*quantity;
-                                                  document.getElementById("amount").value=total; 
-                                                }
-                                              </script>
+                                              
                                         </td>
                                     </tr>                                    
                                 </tbody>
@@ -102,28 +105,20 @@
                                             </td>
                                             <td class="right">
                                                 <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                      <button id="total-btn" type="button" class="input-group-text" onclick="calculatevat()">Total</button>
-                                                    </div>
-                                                    <input type="text" id="vat" class="form-control"  name="vat" style="width: 90px;"/>                                            
+                                                    
+                                                    <input type="text" id="vat" class="form-control"  name="vat" style="width: 90px;" value="{{get_vat}}"/>                                            
                                                   </div>                                                
                                             </td>
-                                            <script>
-                                                var total = document.getElementById("amount").value;
-                                                var vat = 0.07;
-                                                function calculatevat(){
-                                                    var aftervat = total + vat*total;
-                                                    document.getElementById("vat").value=aftervat;
-                                                    
-                                                }
-                                            </script>
+                                            
                                         </tr>
                                         <tr>
                                             <td class="left">
                                                 <strong>Paid Amount</strong>
                                             </td>
                                             <td class="right">
-                                                <input type="number" name="paid-amount" id="" style="width: 100px;" value="{{queryset.paid_amount}}">
+                                                <div class="input-group mb-3">
+                                                    <input type="number" class="form-control" name="paid-amount" id="" style="width: 100px;" value="{{queryset.paid_amount}}">
+                                                </div>                                                
                                             </td>
                                         </tr>
                                         

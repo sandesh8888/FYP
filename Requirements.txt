@@ -1,0 +1,6 @@
+Python > 3.8
+django 
+bootstrap
+jquery
+crispy_forms
+

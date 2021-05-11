@@ -94,7 +94,7 @@ def product_sell_to_customer(request, id):
             product.customer.set = Customer(customers.id)
             product.quantity = int(product.quantity) - int(get_quantity)
             product.save()
-            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount,quantity=get_quantity)
             customer_tran.customer=Customer(customers.id)
             customer_tran.product=Products(product.id)
             customer_tran.remaining_due=int(float(customer_tran.total_amount)) - int(float(customer_tran.paid_amount))
@@ -106,7 +106,7 @@ def product_sell_to_customer(request, id):
             product.customer.set = Customer(duplicates[0].id)
             product.quantity = int(product.quantity) - int(get_quantity)
             product.save()
-            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount)
+            customer_tran = CustomerTransaction(total_amount=get_amount, date=date.today(),paid_amount=get_paid_amount,quantity=get_quantity)
             customer_tran.customer=Customer(duplicates[0].id)
             customer_tran.product=Products(product.id)
             customer_tran.remaining_due=int(float(customer_tran.total_amount)) - int(float(customer_tran.paid_amount))
@@ -196,8 +196,11 @@ def receipt_form(request):
 
 def print_receipt_customer(request, id):
     queryset = CustomerTransaction.objects.get(id=id)
+    vatrate = 0.07
+    vat=queryset.total_amount + queryset.total_amount*vatrate
     context = {
-        "queryset":queryset
+        "queryset":queryset,
+        "get_vat":vat
     }
 
     return render(request, "receipt_form.htm", context)

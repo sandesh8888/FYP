@@ -32,9 +32,6 @@ def dashboard(request):
     total_remaining_customer = CustomerTransaction.objects.aggregate(Sum('remaining_due'))
     top_product=list(map(lambda x : x['product'], top_product_list))
 
-    print(top_product_list)
-
-    print(Products.objects.get(id=top_product[0]))
     transaction_by_date = CustomerTransaction.objects.filter().values('product_id').annotate(data_sum=Sum('paid_amount'))
     date_dict = list(map(lambda x : x['product_id'], transaction_by_date))
     data_dict = list(map(lambda x : x['data_sum'], transaction_by_date))

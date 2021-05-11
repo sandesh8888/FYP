@@ -52,6 +52,7 @@
                     <tr>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Total Amount</th>
                         <th scope="col">Paid Amount</th>
                         <th scope="col">Remaining Amount</th>
@@ -65,6 +66,7 @@
                     <tr>
                         <td>{{customer.customer.firstname}} {{customer.customer.lastname}}</td>
                         <td>{{customer.product.item_name}}</td>
+                        <td>{{customer.quantity}}</td>
                         <td>{{customer.total_amount}}</td>
                         <td>{{customer.paid_amount}}</td>
                         <td>{{customer.remaining_due}}</td>

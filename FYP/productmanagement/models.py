@@ -37,6 +37,7 @@ class DealerTransaction(models.Model):
 class CustomerTransaction(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
+    quantity = models.IntegerField()
     total_amount = models.FloatField(blank=True, null=True)
     paid_amount = models.FloatField(blank=True, null=True)
     remaining_due = models.FloatField(blank=True, null=True)
